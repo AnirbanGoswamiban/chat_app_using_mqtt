@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="heading">CLIENT</h1>
+        <div class="inner">
+        <textarea disabled name="text" id="message-recive" ></textarea>
+        <textarea name="text" id="message" placeholder="Type Here" ></textarea>
+        <input type="button" id="button" name="myButton" value="Click me!">
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+        var name=prompt("Enter Name")
+        document.getElementById("heading").innerText=name 
+       const a= document.getElementById("button")
+
+
+       a.addEventListener("click",()=>{
+        let message=document.getElementById("message").value
+       let a=axios.post("/pub-post2",{"name":name,"data":message})
+       console.log(a);
+       })
+
+
+
+       var display
+       setInterval(() => {
+        fetch("/recive2")
+        .then((response) => response.json())
+        .then((data) => {
+            display=data.message
+            console.log(data);
+        });
+        document.getElementById("message-recive").value=display
+            
+     
+       },1000);
+    </script>
+</body>
+</html>
